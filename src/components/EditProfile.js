@@ -74,8 +74,7 @@ export default class EditProfile extends Component {
     this.setState({
       userId: id
     })
-    const user_id = this.state.userId
-    axios.get(`http://localhost:4000/user/getUser/${user_id}`)
+    axios.get(`http://localhost:4000/user/getUser/${id}`)
       .then((response) => {
         const data = response.data.user
         this.setState({
@@ -191,8 +190,6 @@ export default class EditProfile extends Component {
     const url = `https://newtestnode.herokuapp.com/user/updateUser/${id}`
     const { phoneNumber, address, dob, files, email } = this.state;
     const data = { dob, phoneNumber, address, email, files };
-    console.log(data,'edit data');
-    
     const dobValidation = this.validateDob(dob)
     const addressValidation = this.validateAddress(address)
     const phoneValidation = this.validatePhone(phoneNumber)
