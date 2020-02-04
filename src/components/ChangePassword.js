@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from "axios";
 import { Link } from "react-router-dom";
 import NavBar from './NavBar'
+var ls = require('local-storage');
 
 class ChangePassword extends Component {
   constructor() {
@@ -14,9 +15,9 @@ class ChangePassword extends Component {
   }
 
   componentDidMount() {
-    const email = localStorage.getItem("email")
-    const id = localStorage.getItem("id")
-    const token = localStorage.getItem("token")
+    const email = ls.get("email")
+    const id = ls.get("id")
+    const token = ls.get("token")
     this.setState({
       userId: id,
       token

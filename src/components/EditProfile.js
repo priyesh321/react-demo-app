@@ -3,6 +3,7 @@ import Select from "react-select";
 import FileBase64 from 'react-file-base64';
 import axios from "axios";
 import NavBar from './NavBar'
+var ls = require('local-storage');
 
 
 export default class EditProfile extends Component {
@@ -69,12 +70,14 @@ export default class EditProfile extends Component {
   }
 
   componentDidMount() {
-    const id = localStorage.getItem("id")
+    const id = ls.get("id")
     this.setState({
       userId: id
     })
     axios.get(`http://localhost:4000/user/getUser/${id}`)
       .then((response) => {
+        console.log(response,'res');
+        
         const data = response.data.user
         this.setState({
           phoneNumber: data.phoneNumber,

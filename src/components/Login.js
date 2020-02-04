@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+var ls = require('local-storage');
 
 export default class Login extends Component {
   constructor() {
@@ -15,7 +16,7 @@ export default class Login extends Component {
 
   componentDidMount() {
     const {history} = this.props
-    const token = localStorage.getItem("token")
+    const token = ls.get("token")
     if(token !== null) {
       history.push('/home')
     }
@@ -66,9 +67,10 @@ export default class Login extends Component {
           const { email } = response.data;
           const { token } = response.data;
           const { id } = response.data
-          localStorage.setItem("email", email);
-          localStorage.setItem("token", token);
-          localStorage.setItem("id", id);
+          ls.set("email", email);
+          ls.set("token", token);
+          ls.set("id", id);
+          ls.set('foo', id);
 
           history.push('/home');
         } else {

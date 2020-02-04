@@ -1,17 +1,18 @@
 import React, { Component } from 'react';
 import { Link, Redirect } from "react-router-dom";
+var ls = require('local-storage');
 
 
 class NavBar extends Component {
 
   signOut = (e) => {
     const { history } = this.props.propsData;
-    localStorage.removeItem("token");
-    localStorage.removeItem("email");
+    ls.remove("token");
+    ls.remove("email");
     history.push('/sign-in');
   }
   render() {
-    const token = localStorage.getItem("token");
+    const token = ls.get("token");
     if (!token) {
       return <Redirect to='/sign-in' />
     }

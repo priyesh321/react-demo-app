@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from "axios";
 import Footer from './Footer/Footer'
 import NavBar from './NavBar'
+var ls = require('local-storage');
 
 class HomeScreen extends Component {
   constructor() {
@@ -13,8 +14,11 @@ class HomeScreen extends Component {
   }
 
   componentDidMount() {
-    const token = localStorage.getItem("token")
-    const id = localStorage.getItem("id", id);
+    const token = ls.get("token")
+    const id = ls.get("id", id);
+    const local = ls.get('foo');
+    console.log(local, 'foo');
+
     this.setState({
       token
     })
