@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import Select from "react-select";
 import FileBase64 from 'react-file-base64';
 import axios from "axios";
+import NavBar from './NavBar'
+
 
 export default class EditProfile extends Component {
   constructor() {
@@ -80,6 +82,7 @@ export default class EditProfile extends Component {
           address: data.address,
           files: data.files,
           dob: data.dob,
+          email:data.email,
           data
         })
       }, (error) => {
@@ -185,15 +188,19 @@ export default class EditProfile extends Component {
     const { history } = this.props
     const id = this.state.userId
     const url = `https://newtestnode.herokuapp.com/user/updateUser/${id}`
-    const { phoneNumber, address, dob, files } = this.state;
-    const data = { dob, phoneNumber, address, files };
+    const { phoneNumber, address, dob, files, email } = this.state;
+    const data = { dob, phoneNumber, address, email, files };
+    console.log(data,'edit data');
+    
     const dobValidation = this.validateDob(dob)
     const addressValidation = this.validateAddress(address)
     const phoneValidation = this.validatePhone(phoneNumber)
+    const emailValidation = this.validateEmail(email)
     this.setState({
       dobValidation,
       addressValidation,
       phoneValidation,
+      emailValidation
     })
     axios.put(url,
       data
@@ -215,7 +222,9 @@ export default class EditProfile extends Component {
     const data = this.state.data
     return (
       <div>
+         <NavBar data={this.state.data} propsData={this.props} />
         <form className="signin-form" method="post" onSubmit={this.handleEdit}>
+
           <div className="form-group">
             <label>Phone Number</label>
             <input
@@ -226,6 +235,18 @@ export default class EditProfile extends Component {
               placeholder="Phone Number"
             />
             <p style={{ color: 'red' }}>{this.state.phoneValidation}</p>
+          </div>
+
+          <div className="form-group">
+            <label>Email address</label>
+            <input
+              type="email"
+              defaultValue={data.email}
+              onChange={(e) => this.setState({ email: e.target.value })}
+              className="form-control"
+              placeholder="Enter email"
+            />
+            <p style={{ color: 'red' }}>{this.state.emailValidation}</p>
           </div>
 
           <div className="form-group">
@@ -308,9 +329,11 @@ export default class EditProfile extends Component {
 
             <FileBase64
               multiple={true}
-              defaultValue={this.state.files}
+              defaultValue={data.files}
               onDone={this.getFiles.bind(this)}
             />
+            <br/>
+            <img src={data.files} width={30} height={30} style={{margin:15}} alt='' />
             <p style={{ color: 'red' }}>{this.state.imageValidation}</p>
           </div>
 

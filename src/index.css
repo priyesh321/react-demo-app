@@ -110,3 +110,14 @@ footer{
   align-items: center;
   margin-top: 25px;
 }
+
+.logout-button {
+  color: #167bff;
+  margin-left: 15px;
+  background-color: #fff;
+  border: 0;
+}
+
+.logout-button:hover{
+ color:rgb(4, 77, 156);
+}

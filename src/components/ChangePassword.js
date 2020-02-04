@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from "axios";
 import { Link } from "react-router-dom";
+import NavBar from './NavBar'
 
 class ChangePassword extends Component {
   constructor() {
@@ -55,6 +56,7 @@ class ChangePassword extends Component {
   render() {
     return (
       <div>
+        <NavBar data={this.state.data} propsData={this.props} />
         <form className="signin-form" onSubmit={this.handleChange}>
           <h3>Change Password</h3>
 

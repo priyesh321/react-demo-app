@@ -24,10 +24,7 @@ class NavBar extends Component {
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav mr-auto">
             <li className="nav-item active">
-              <a className="nav-link" href="#">Home <span className="sr-only">(current)</span></a>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link" href="#">Link</a>
+            <Link className="nav-link" to={"/home"}>Home</Link>
             </li>
           </ul>
           <div className="dropdown header-dropdown">
@@ -35,12 +32,10 @@ class NavBar extends Component {
               Account
               </a>
             <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-              <Link className="nav-link" to={"/edit"}>Edit</Link>
+              <Link className="nav-link" to={"/edit"}>Edit Profile</Link>
               <Link className="nav-link" to={"/change-password"}>Change Password</Link>
               <div className="dropdown-divider"></div>
-              <p style={{color:'#1C8EF9 ', marginLeft:17}} onClick={(e) => this.signOut()} >Logout</p>
-             
-             
+              <button className="logout-button" onClick={() => this.signOut()}>Logout</button>
             </div>
           </div>
         </div>

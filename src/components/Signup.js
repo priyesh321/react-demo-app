@@ -166,7 +166,7 @@ export default class SignUp extends Component {
     const { history } = this.props
     e.preventDefault();
     const url = "https://newtestnode.herokuapp.com/user/signup"
-    const { phoneNumber, email, password, address, dob, answer1, answer2, answer3, files, question1: { value: question1 },  question2: { value: question2 }, question3: { value: question3 } } = this.state;
+    const { phoneNumber, email, password, address, dob, answer1, answer2, answer3, files, question1: { value: question1 }, question2: { value: question2 }, question3: { value: question3 } } = this.state;
     const data = { email, password, dob, phoneNumber, answer1, answer2, answer3, address, files, question1, question2, question3 };
     const emailValidation = this.validateEmail(email)
     const passwordValidation = this.validatePassword(password)
@@ -201,28 +201,18 @@ export default class SignUp extends Component {
   render() {
     return (
       <div>
-
         <form className="signin-form" onSubmit={this.handleSignup}>
+
+
           <div className="form-group">
             <label>Phone Number</label>
             <input
               type="number"
               onChange={(e) => this.setState({ phoneNumber: e.target.value })}
               className="form-control"
-              placeholder="Phone Number"
+              placeholder="Phone number"
             />
             <p style={{ color: 'red' }}>{this.state.phoneValidation}</p>
-          </div>
-
-          <div className="form-group">
-            <label>Address</label>
-            <input
-              type="text"
-              onChange={(e) => this.setState({ address: e.target.value })}
-              className="form-control"
-              placeholder="Address"
-            />
-            <p style={{ color: 'red' }}>{this.state.addressValidation}</p>
           </div>
 
           <div className="form-group">
@@ -237,16 +227,6 @@ export default class SignUp extends Component {
           </div>
 
           <div className="form-group">
-            <label>Date of birth</label>
-            <input
-              type="date"
-              onChange={(e) => this.setState({ dob: e.target.value })}
-              className="form-control"
-              placeholder="Enter DOB" />
-            <p style={{ color: 'red' }}>{this.state.dobValidation}</p>
-          </div>
-
-          <div className="form-group">
             <label>Password</label>
             <input
               type="password"
@@ -257,12 +237,34 @@ export default class SignUp extends Component {
           </div>
 
           <div className="form-group">
+            <label>Address</label>
+            <input
+              type="text"
+              onChange={(e) => this.setState({ address: e.target.value })}
+              className="form-control"
+              placeholder="Address"
+            />
+            <p style={{ color: 'red' }}>{this.state.addressValidation}</p>
+          </div>
+
+          <div className="form-group">
+            <label>Date of birth</label>
+            <input
+              type="date"
+              onChange={(e) => this.setState({ dob: e.target.value })}
+              className="form-control"
+              placeholder="Enter DOB" />
+            <p style={{ color: 'red' }}>{this.state.dobValidation}</p>
+          </div>
+
+
+          <div className="form-group">
             <label>Security Question</label>
 
             <Select
               name="question1"
               placeholder="Question #1"
-              value={this.state.question1}
+              //value={this.state.question1}
               options={this.getAvailableOptions()}
               onChange={e => {
                 this.handleQuestionValChange(e, "question1");
@@ -280,7 +282,7 @@ export default class SignUp extends Component {
             <Select
               name="question2"
               placeholder="Question #2"
-              value={this.state.question2}
+              //value={this.state.question2}
               options={this.getAvailableOptions()}
               onChange={e => {
                 this.handleQuestionValChange(e, "question2");
@@ -298,7 +300,7 @@ export default class SignUp extends Component {
             <Select
               name="question3"
               placeholder="Question #3"
-              value={this.state.question3}
+              //value={this.state.question3}
               options={this.getAvailableOptions()}
               onChange={e => {
                 this.handleQuestionValChange(e, "question3");
