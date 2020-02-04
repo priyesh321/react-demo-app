@@ -74,7 +74,7 @@ export default class EditProfile extends Component {
     this.setState({
       userId: id
     })
-    axios.get(`http://localhost:4000/user/getUser/${id}`)
+    axios.get(`https://newtestnode.herokuapp.com/user/getUser/${id}`)
       .then((response) => {
         console.log(response,'res');
         
