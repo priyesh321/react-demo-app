@@ -15,7 +15,7 @@ class HomeScreen extends Component {
   componentDidMount() {
     const email = localStorage.getItem("email")
     const token = localStorage.getItem("token")
-    const id = localStorage.setItem("id", id);
+    const id = localStorage.getItem("id", id);
     this.setState({
       token
     })
