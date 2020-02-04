@@ -74,7 +74,8 @@ export default class EditProfile extends Component {
     this.setState({
       userId: id
     })
-    axios.get(`http://localhost:4000/user/getUser/${email}`)
+    const user_id = this.state.userId
+    axios.get(`http://localhost:4000/user/getUser/${user_id}`)
       .then((response) => {
         const data = response.data.user
         this.setState({

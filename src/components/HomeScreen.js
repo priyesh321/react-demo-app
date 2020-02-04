@@ -15,11 +15,12 @@ class HomeScreen extends Component {
   componentDidMount() {
     const email = localStorage.getItem("email")
     const token = localStorage.getItem("token")
+    const id = localStorage.setItem("id", id);
     this.setState({
       token
     })
 
-    axios.get(`https://newtestnode.herokuapp.com/user/getUser/${email}`)
+    axios.get(`https://newtestnode.herokuapp.com/user/getUser/${id}`)
       .then((response) => {
         const data = response.data.user
         this.setState({
