@@ -69,7 +69,6 @@ export default class EditProfile extends Component {
   }
 
   componentDidMount() {
-    const email = localStorage.getItem("email")
     const id = localStorage.getItem("id")
     this.setState({
       userId: id
