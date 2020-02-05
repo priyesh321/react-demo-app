@@ -24,9 +24,12 @@ export default class EditProfile extends Component {
       address: '',
       dob: '',
       password: '',
-      answer: '',
+      answer1: '',
       answer2: '',
       answer3: '',
+      question1: { label: '', value: "" },
+      question2: { label: '', value: "" },
+      question3: { label: '', value: "" },
       questionVals: [null, null, null],
       filterOptions: [
         {
@@ -82,7 +85,7 @@ export default class EditProfile extends Component {
           address: data.address,
           files: data.files,
           dob: data.dob,
-          email:data.email,
+          email: data.email,
           data
         })
       }, (error) => {
@@ -97,12 +100,10 @@ export default class EditProfile extends Component {
   handleQuestionValChange = (option, index) => {
     const newQuestionVals = this.state.questionVals;
     newQuestionVals[index] = option;
-    this.setState(state => {
-      return {
-        answer: newQuestionVals
-      };
+    this.setState({
+      [index]: option
     });
-  };
+  };;
 
   getAvailableOptions = () => {
     const availableOptionsLeft = this.state.filterOptions;
@@ -188,8 +189,8 @@ export default class EditProfile extends Component {
     const { history } = this.props
     const id = this.state.userId
     const url = `https://newtestnode.herokuapp.com/user/updateUser/${id}`
-    const { phoneNumber, address, dob, files, email } = this.state;
-    const data = { dob, phoneNumber, address, email, files };
+    const { phoneNumber, address, dob, files, email, answer1, answer2, answer3, question1: { value: question1 }, question2: { value: question2 }, question3: { value: question3 } } = this.state;
+    const data = { dob, phoneNumber, address, email, files, answer1, answer2, answer3, question1, question2, question3 };
     const dobValidation = this.validateDob(dob)
     const addressValidation = this.validateAddress(address)
     const phoneValidation = this.validatePhone(phoneNumber)
@@ -220,7 +221,7 @@ export default class EditProfile extends Component {
     const data = this.state.data
     return (
       <div>
-         <NavBar data={this.state.data} propsData={this.props} />
+        <NavBar data={this.state.data} propsData={this.props} />
         <form className="signin-form" method="post" onSubmit={this.handleEdit}>
 
           <div className="form-group">
@@ -273,12 +274,12 @@ export default class EditProfile extends Component {
           <div className="form-group">
             <label>Security Question</label>
             <Select
-              name="filters"
+              name="question1"
               placeholder={data.question1}
               defaultValue={data.question1}
               options={this.getAvailableOptions()}
               onChange={e => {
-                this.handleQuestionValChange(e, 0);
+                this.handleQuestionValChange(e, "question1");
               }}
             />
             <input
@@ -286,17 +287,18 @@ export default class EditProfile extends Component {
               defaultValue={data.answer1}
               className="form-control"
               placeholder="Answer #1"
+              onChange={(e) => this.setState({ answer1: e.target.value })}
             />
 
             <br />
 
             <Select
-              name="filters"
+              name="question2"
               defaultValue={data.question2}
               placeholder={data.question2}
               options={this.getAvailableOptions()}
               onChange={e => {
-                this.handleQuestionValChange(e, 1);
+                this.handleQuestionValChange(e, "question2");
               }}
             />
             <input
@@ -304,24 +306,27 @@ export default class EditProfile extends Component {
               defaultValue={data.answer2}
               className="form-control"
               placeholder="Answer #2"
+              onChange={(e) => this.setState({ answer2: e.target.value })}
             />
 
             <br />
 
             <Select
-              name="filters"
+              name="question3"
               placeholder={data.question3}
               defaultValue={data.question3}
               options={this.getAvailableOptions()}
               onChange={e => {
-                this.handleQuestionValChange(e, 2);
+                this.handleQuestionValChange(e, "question3");
               }}
             />
             <input
               type="text"
               defaultValue={data.answer3}
               className="form-control"
-              placeholder="Answer #3" />
+              placeholder="Answer #3"
+              onChange={(e) => this.setState({ answer3: e.target.value })}
+            />
 
             <br />
 
@@ -330,8 +335,8 @@ export default class EditProfile extends Component {
               defaultValue={data.files}
               onDone={this.getFiles.bind(this)}
             />
-            <br/>
-            <img src={data.files} width={30} height={30} style={{margin:15}} alt='' />
+            <br />
+            <img src={data.files} width={30} height={30} style={{ margin: 15 }} alt='' />
             <p style={{ color: 'red' }}>{this.state.imageValidation}</p>
           </div>
 
