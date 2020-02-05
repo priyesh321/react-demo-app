@@ -76,8 +76,6 @@ export default class EditProfile extends Component {
     })
     axios.get(`https://newtestnode.herokuapp.com/user/getUser/${id}`)
       .then((response) => {
-        console.log(response,'res');
-        
         const data = response.data.user
         this.setState({
           phoneNumber: data.phoneNumber,

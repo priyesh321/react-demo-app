@@ -14,11 +14,8 @@ class HomeScreen extends Component {
   }
 
   componentDidMount() {
+    const id = ls.get("id");
     const token = ls.get("token")
-    const id = ls.get("id", id);
-    const local = ls.get('foo');
-    console.log(local, 'foo');
-
     this.setState({
       token
     })
