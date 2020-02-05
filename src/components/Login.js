@@ -10,14 +10,15 @@ export default class Login extends Component {
       email: '',
       password: '',
       emailValidation: '',
-      passwordValidation: ''
+      passwordValidation: '',
+      errorMessage: ''
     }
   }
 
   componentDidMount() {
-    const {history} = this.props
+    const { history } = this.props
     const token = ls.get("token")
-    if(token !== null) {
+    if (token !== null) {
       history.push('/home')
     }
   }
@@ -71,14 +72,13 @@ export default class Login extends Component {
           ls.set("token", token);
           ls.set("id", id);
           ls.set('foo', id);
-
           history.push('/home');
         } else {
           history.push('/sign-up');
         }
       })
-      .catch(function (error) {
-        console.log(error);
+      .catch(error => {
+        this.setState({ errorMessage: error.response.data.message });
       });
   }
   render() {
@@ -107,6 +107,9 @@ export default class Login extends Component {
           />
           <p style={{ color: 'red' }}>{this.state.passwordValidation}</p>
         </div>
+
+        {this.state.errorMessage &&
+          <p style={{ color: 'red' }}> {this.state.errorMessage} </p>}
 
         <button
           type="submit"

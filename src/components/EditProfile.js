@@ -184,7 +184,7 @@ export default class EditProfile extends Component {
     return error
   }
 
-  handleEdit = (e) => {
+  handleEdit = async (e) => {
     e.preventDefault();
     const { history } = this.props
     const id = this.state.userId
@@ -201,15 +201,18 @@ export default class EditProfile extends Component {
       phoneValidation,
       emailValidation
     })
+   
+
     axios.put(url,
       data
     )
       .then((response) => {
-        if (response.status === 200) {
+        if(this.state.phoneNumber.length !== 10) {
+          alert("incorrect number")
+        }
+        else  {
           alert("updated sucessfully")
           history.push('/home');
-        } else {
-          history.push('/sign-in');
         }
       })
       .catch(function (error) {
