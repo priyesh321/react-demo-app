@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import Select from "react-select";
 import FileBase64 from 'react-file-base64';
 import axios from "axios";
+var ls = require('local-storage');
 
 export default class SignUp extends Component {
   constructor() {
@@ -68,6 +69,14 @@ export default class SignUp extends Component {
         }
       ]
     };
+  }
+
+  componentDidMount() {
+    const { history } = this.props
+    const token = ls.get("token")
+    if (token !== null) {
+      history.push('/home')
+    }
   }
 
   getFiles(files) {
