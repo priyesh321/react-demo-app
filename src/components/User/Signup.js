@@ -214,12 +214,20 @@ export default class SignUp extends Component {
           history.push('/sign-up');
         }
       })
-      .catch(function (error) {
+      .catch((error) => {
         console.log(error);
       });
   }
 
   render() {
+    const
+      { phoneValidation,
+        emailValidation,
+        passwordValidation,
+        addressValidation,
+        dobValidation,
+        imageValidation
+      } = this.props;
     return (
       <div>
         <form className="signin-form" onSubmit={this.handleSignup}>
@@ -232,7 +240,7 @@ export default class SignUp extends Component {
               className="form-control"
               placeholder="Phone number"
             />
-            <p style={{ color: 'red' }}>{this.state.phoneValidation}</p>
+            <p style={{ color: 'red' }}>{phoneValidation}</p>
           </div>
 
           <div className="form-group">
@@ -243,7 +251,7 @@ export default class SignUp extends Component {
               className="form-control"
               placeholder="Enter email"
             />
-            <p style={{ color: 'red' }}>{this.state.emailValidation}</p>
+            <p style={{ color: 'red' }}>{emailValidation}</p>
           </div>
 
           <div className="form-group">
@@ -253,7 +261,7 @@ export default class SignUp extends Component {
               onChange={(e) => this.setState({ password: e.target.value })}
               className="form-control"
               placeholder="Enter password" />
-            <p style={{ color: 'red' }}>{this.state.passwordValidation}</p>
+            <p style={{ color: 'red' }}>{passwordValidation}</p>
           </div>
 
           <div className="form-group">
@@ -264,7 +272,7 @@ export default class SignUp extends Component {
               className="form-control"
               placeholder="Address"
             />
-            <p style={{ color: 'red' }}>{this.state.addressValidation}</p>
+            <p style={{ color: 'red' }}>{addressValidation}</p>
           </div>
 
           <div className="form-group">
@@ -274,7 +282,7 @@ export default class SignUp extends Component {
               onChange={(e) => this.setState({ dob: e.target.value })}
               className="form-control"
               placeholder="Enter DOB" />
-            <p style={{ color: 'red' }}>{this.state.dobValidation}</p>
+            <p style={{ color: 'red' }}>{dobValidation}</p>
           </div>
 
 
@@ -284,7 +292,6 @@ export default class SignUp extends Component {
             <Select
               name="question1"
               placeholder="Question #1"
-              //value={this.state.question1}
               options={this.getAvailableOptions()}
               onChange={e => {
                 this.handleQuestionValChange(e, "question1");
@@ -302,7 +309,6 @@ export default class SignUp extends Component {
             <Select
               name="question2"
               placeholder="Question #2"
-              //value={this.state.question2}
               options={this.getAvailableOptions()}
               onChange={e => {
                 this.handleQuestionValChange(e, "question2");
@@ -320,7 +326,6 @@ export default class SignUp extends Component {
             <Select
               name="question3"
               placeholder="Question #3"
-              //value={this.state.question3}
               options={this.getAvailableOptions()}
               onChange={e => {
                 this.handleQuestionValChange(e, "question3");
@@ -339,7 +344,7 @@ export default class SignUp extends Component {
             <FileBase64
               multiple={true}
               onDone={this.getFiles.bind(this)} />
-            <p style={{ color: 'red' }}>{this.state.imageValidation}</p>
+            <p style={{ color: 'red' }}>{imageValidation}</p>
           </div>
 
           <button type="submit" className="btn btn-primary btn-block">Sign Up</button>

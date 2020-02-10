@@ -10,7 +10,8 @@ class ChangePassword extends Component {
     this.state = {
       currentPassword: '',
       newPassword: '',
-      token: null
+      token: null,
+      userId: null
     }
   }
 
@@ -35,29 +36,32 @@ class ChangePassword extends Component {
 
   handleChange = (e) => {
     e.preventDefault();
-    const id = this.state.userId
+    const { userId, currentPassword, newPassword } = this.state
     const { history } = this.props;
-    const url = `https://newtestnode.herokuapp.com/user/reset-password/${id}`
-    const { currentPassword, newPassword } = this.state;
-    const data = { currentPassword, newPassword, };
-
-    axios.put(url,
-      data
-    )
+    const url = `https://newtestnode.herokuapp.com/user/reset-password/${userId}`
+    const data = { currentPassword, newPassword };
+    axios.put(url, data, {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
       .then((response) => {
         if (response.status === 200) {
           alert("Password Changed sucessfully")
           history.push('/home');
         }
       })
-      .catch(function (error) {
+      .catch((error) => {
         console.log(error);
       });
   }
+
+
   render() {
+    const { data } = this.props;
     return (
       <div>
-        <NavBar data={this.state.data} propsData={this.props} />
+        <NavBar data={data} propsData={this.props} />
         <form className="signin-form" onSubmit={this.handleChange}>
           <h3>Change Password</h3>
 

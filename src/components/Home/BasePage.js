@@ -24,7 +24,6 @@ class BasePage extends Component {
         </div>
       </div>
     );
-
   }
 }
 

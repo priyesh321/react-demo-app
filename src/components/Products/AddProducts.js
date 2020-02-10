@@ -15,14 +15,9 @@ class AddProducts extends Component {
   }
 
   handleAddProduct = (e) => {
-    const { history } = this.props
     const url = "http://localhost:4000/user/create-product"
-    const { 
-      title,
-      description,
-      company,
-      price
-    } = this.state
+    const { history } = this.props
+    const { title, description, company, price } = this.state
     const data = { title, description, company, price };
     axios.post(url,
       data
@@ -33,14 +28,14 @@ class AddProducts extends Component {
           history.push('/product-list');
         }
       })
-      .catch(function (error) {
+      .catch((error) => {
         console.log(error);
       });
   }
   render() {
     return (
       <div>
-         <NavBar />
+        <NavBar />
         <form className="signin-form" onSubmit={this.handleAddProduct}>
           <div className="form-group">
             <label>Title</label>

@@ -5,7 +5,6 @@ import axios from "axios";
 import NavBar from '../NavBar'
 var ls = require('local-storage');
 
-
 export default class EditProfile extends Component {
   constructor() {
     super();
@@ -74,19 +73,20 @@ export default class EditProfile extends Component {
 
   componentDidMount() {
     const id = ls.get("id")
+    const url = `https://newtestnode.herokuapp.com/user/getUser/${id}`
     this.setState({
       userId: id
     })
-    axios.get(`https://newtestnode.herokuapp.com/user/getUser/${id}`)
+    axios.get(url)
       .then((response) => {
-        const data = response.data.user
+        const { user } = response.data
         this.setState({
-          phoneNumber: data.phoneNumber,
-          address: data.address,
-          files: data.files,
-          dob: data.dob,
-          email: data.email,
-          data
+          phoneNumber: user.phoneNumber,
+          address: user.address,
+          files: user.files,
+          dob: user.dob,
+          email: user.email,
+          user
         })
       }, (error) => {
         console.log(error);
@@ -201,30 +201,36 @@ export default class EditProfile extends Component {
       phoneValidation,
       emailValidation
     })
-   
 
     axios.put(url,
       data
     )
       .then((response) => {
-        if(this.state.phoneNumber.length !== 10) {
+        if (this.state.phoneNumber.length !== 10) {
           alert("incorrect number")
         }
-        else  {
+        else {
           alert("updated sucessfully")
           history.push('/home');
         }
       })
-      .catch(function (error) {
+      .catch((error) => {
         console.log(error);
       });
   }
 
   render() {
-    const data = this.state.data
+    const {
+      data,
+      phoneValidation,
+      emailValidation,
+      imageValidation,
+      dobValidation,
+      addressValidation
+    } = this.state
     return (
       <div>
-        <NavBar data={this.state.data} propsData={this.props} />
+        <NavBar data={data} propsData={this.props} />
         <form className="signin-form" method="post" onSubmit={this.handleEdit}>
 
           <div className="form-group">
@@ -236,7 +242,7 @@ export default class EditProfile extends Component {
               className="form-control"
               placeholder="Phone Number"
             />
-            <p style={{ color: 'red' }}>{this.state.phoneValidation}</p>
+            <p style={{ color: 'red' }}>{phoneValidation}</p>
           </div>
 
           <div className="form-group">
@@ -248,7 +254,7 @@ export default class EditProfile extends Component {
               className="form-control"
               placeholder="Enter email"
             />
-            <p style={{ color: 'red' }}>{this.state.emailValidation}</p>
+            <p style={{ color: 'red' }}>{emailValidation}</p>
           </div>
 
           <div className="form-group">
@@ -260,7 +266,7 @@ export default class EditProfile extends Component {
               className="form-control"
               placeholder="Address"
             />
-            <p style={{ color: 'red' }}>{this.state.addressValidation}</p>
+            <p style={{ color: 'red' }}>{addressValidation}</p>
           </div>
 
           <div className="form-group">
@@ -271,7 +277,7 @@ export default class EditProfile extends Component {
               onChange={(e) => this.setState({ dob: e.target.value })}
               className="form-control"
               placeholder="Enter DOB" />
-            <p style={{ color: 'red' }}>{this.state.dobValidation}</p>
+            <p style={{ color: 'red' }}>{dobValidation}</p>
           </div>
 
           <div className="form-group">
@@ -340,7 +346,7 @@ export default class EditProfile extends Component {
             />
             <br />
             <img src={data.files} width={30} height={30} style={{ margin: 15 }} alt='' />
-            <p style={{ color: 'red' }}>{this.state.imageValidation}</p>
+            <p style={{ color: 'red' }}>{imageValidation}</p>
           </div>
 
           <button type="submit" className="btn btn-primary btn-block">Save</button>

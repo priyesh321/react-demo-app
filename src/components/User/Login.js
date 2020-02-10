@@ -47,7 +47,7 @@ export default class Login extends Component {
     return error
   }
 
-  handleSignin = (e) => {
+  handleSignin = e => {
     e.preventDefault();
     const { history } = this.props;
     const url = "https://newtestnode.herokuapp.com/user/login"
@@ -64,13 +64,10 @@ export default class Login extends Component {
     )
       .then((response) => {
         if (response.status === 200) {
-          const { email } = response.data;
-          const { token } = response.data;
-          const { id } = response.data
+          const { email, token, id } = response.data;
           ls.set("email", email);
           ls.set("token", token);
           ls.set("id", id);
-          ls.set('foo', id);
           history.push('/home');
         } else {
           history.push('/sign-up');
@@ -81,6 +78,7 @@ export default class Login extends Component {
       });
   }
   render() {
+    const { emailValidation, passwordValidation, errorMessage } = this.props
     return (
       <form className="signin-form" onSubmit={this.handleSignin}>
         <h3>Sign In</h3>
@@ -93,7 +91,7 @@ export default class Login extends Component {
             className="form-control"
             placeholder="Enter email"
           />
-          <p style={{ color: 'red' }}>{this.state.emailValidation}</p>
+          <p style={{ color: 'red' }}>{emailValidation}</p>
         </div>
 
         <div className="form-group">
@@ -104,11 +102,11 @@ export default class Login extends Component {
             className="form-control"
             placeholder="Enter password"
           />
-          <p style={{ color: 'red' }}>{this.state.passwordValidation}</p>
+          <p style={{ color: 'red' }}>{passwordValidation}</p>
         </div>
 
-        {this.state.errorMessage &&
-          <p style={{ color: 'red' }}> {this.state.errorMessage} </p>}
+        {errorMessage &&
+          <p style={{ color: 'red' }}> {errorMessage} </p>}
 
         <button
           type="submit"

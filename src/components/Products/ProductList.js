@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import NavBar from '../NavBar'
-import Footer from '../Footer/Footer'
 import axios from "axios";
 import { Table, Button } from 'react-bootstrap';
 var ls = require('local-storage');
@@ -11,7 +10,7 @@ class ProductList extends Component {
     this.state = {
       data: [],
       page: 1,
-      loading:true
+      loading: true
     }
   }
 
@@ -43,13 +42,14 @@ class ProductList extends Component {
   }
 
   loadProduct = () => {
-    const url = `http://localhost:4000/user/get-product?pageNo=${this.state.page}&size=10`
+    const { page } = this.state
+    const url = `http://localhost:4000/user/get-product?pageNo=${page}&size=10`
     axios.get(url)
       .then((response) => {
         const data = response.data.product
-        if(data.length === 0) {
+        if (data.length === 0) {
           this.setState({
-            loading:false
+            loading: false
           })
         }
         this.setState({
@@ -72,7 +72,7 @@ class ProductList extends Component {
   };
 
   render() {
-    const { data } = this.state
+    const { data, loading } = this.state
     return (
       <div>
         <NavBar />
@@ -104,9 +104,9 @@ class ProductList extends Component {
             })}
           </tbody>
         </Table>
-       {this.state.loading &&
-        <Button variant="outline-light" onClick={() => this.handleLoadMore()}>Load More</Button>
-       }
+        {loading &&
+          <Button variant="outline-light" onClick={() => this.handleLoadMore()}>Load More</Button>
+        }
       </div>
     );
   }

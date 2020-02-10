@@ -2,9 +2,7 @@ import React, { Component } from 'react';
 import { Link, Redirect } from "react-router-dom";
 var ls = require('local-storage');
 
-
 class NavBar extends Component {
-
   signOut = (e) => {
     const { history } = this.props.propsData;
     ls.remove("token");
@@ -25,7 +23,7 @@ class NavBar extends Component {
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav mr-auto">
             <li className="nav-item active">
-            <Link className="nav-link" to={"/home"}>Home</Link>
+              <Link className="nav-link" to={"/home"}>Home</Link>
             </li>
             <Link className="nav-link" to={"/product-list"}>Products</Link>
             <Link className="nav-link" to={"/add-product"}>Add Products</Link>

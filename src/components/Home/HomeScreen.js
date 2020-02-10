@@ -16,15 +16,16 @@ class HomeScreen extends Component {
   componentDidMount() {
     const id = ls.get("id");
     const token = ls.get("token")
+    const url = `https://newtestnode.herokuapp.com/user/getUser/${id}`
     this.setState({
       token
     })
 
-    axios.get(`https://newtestnode.herokuapp.com/user/getUser/${id}`)
+    axios.get(url)
       .then((response) => {
-        const data = response.data.user
+        const { user } = response.data
         this.setState({
-          data
+          data: user
         })
       }, (error) => {
         console.log(error);
@@ -32,9 +33,10 @@ class HomeScreen extends Component {
   }
 
   render() {
+    const { data } = this.state
     return (
       <div>
-        <NavBar data={this.state.data} propsData={this.props} />
+        <NavBar data={data} propsData={this.props} />
         <div className="user-details mt-3">
           <h3 className="m-0"> <u>User Details</u></h3>
           <div style={{ marginTop: 25 }}>

@@ -5,7 +5,7 @@ import { Button } from 'react-bootstrap';
 
 class ProductDetails extends Component {
   render() {
-    const { state } = this.props.location
+    const { location: { state } } = this.props;
     return (
       <div>
         <NavBar />
