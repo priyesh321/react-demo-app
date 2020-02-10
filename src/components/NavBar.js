@@ -27,7 +27,10 @@ class NavBar extends Component {
             <li className="nav-item active">
             <Link className="nav-link" to={"/home"}>Home</Link>
             </li>
+            <Link className="nav-link" to={"/product-list"}>Products</Link>
+            <Link className="nav-link" to={"/add-product"}>Add Products</Link>
           </ul>
+
           <div className="dropdown header-dropdown">
             <a className="dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               Account
